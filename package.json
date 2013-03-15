@@ -1,0 +1,39 @@
+{
+  "name": "browserify-middleware",
+  "version": "0.0.0",
+  "description": "express middleware for browserify v2",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "mocha -R spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ForbesLindesay/browserify-middleware.git"
+  },
+  "keywords": [
+    "browserify",
+    "v2",
+    "middleware",
+    "express",
+    "connect"
+  ],
+  "author": "ForbesLindesay",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "79b5a462163a31a365668788e6c55a7092d017ac",
+  "devDependencies": {
+    "express": "~3.1.0",
+    "hyperquest": "~0.1.0",
+    "concat-stream": "~0.1.1"
+  },
+  "dependencies": {
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.1.4",
+    "callsite": "~1.0.0",
+    "browserify": "~2.6.0",
+    "uglify-js": "~2.2.5"
+  }
+}
