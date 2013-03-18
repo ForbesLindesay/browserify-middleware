@@ -3,8 +3,9 @@ var express = require('express');
 var app = express();
 
 var options = {
-  debug: false,
-  minify: true
+  debug: true,
+  minify: false,
+  cache: false
 };
 
 app.use('/js', browserify('./client/dir', options));
