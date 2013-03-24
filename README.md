@@ -1,5 +1,7 @@
 # browserify-middleware
 
+<img src="http://i.imgur.com/6cyfaYS.png" align="right" />
+
 express middleware for browserify v2 with sensible defaults for the ultimate in ease of use.  In addition to the basics, browserify-middleware has the following features out of the box:
 
  - source-maps are automatically enabled for debugging
