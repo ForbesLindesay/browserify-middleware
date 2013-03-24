@@ -87,3 +87,11 @@ There are two types of options, those that impact "Serving" and those that impac
 - `options.insertGlobals` - set to true to always insert `process`, `global` etc. without analysing the AST for faster builds but larger bundles (Note that `options.minify` may cause the globals to be removed again anyway) (default: false)
 - `options.detectGlobals` - set to false to skip adding `process`, `global` etc.  Setting this to false may break more npm modules (default: true).
 - `options.debug` - Should source maps be enabled for easier debugging (default: `false` in production `true` in development)
+
+## License
+
+  MIT
+  
+  If you find it useful, a payment via [gittip](https://www.gittip.com/ForbesLindesay) would be appreciated.
+
+![viewcount](https://viewcount.jepso.com/count/ForbesLindesay/browserify-middleware.png)
