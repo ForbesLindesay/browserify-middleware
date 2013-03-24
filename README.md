@@ -1,6 +1,9 @@
 # browserify-middleware
 
-express middleware for browserify v2
+express middleware for browserify v2 with sensible defaults for the ultimate in ease of use.
+
+[![Build Status](https://travis-ci.org/ForbesLindesay/browserify-middleware.png?branch=master)](https://travis-ci.org/ForbesLindesay/browserify-middleware)
+[![Dependency Status](https://gemnasium.com/ForbesLindesay/browserify-middleware.png)](https://gemnasium.com/ForbesLindesay/browserify-middleware)
 
 ## Usage
 
@@ -22,6 +25,8 @@ app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
 
 app.listen(3000);
 ```
+
+P.S. file paths are relative to `__dirname` of caller, not relative to `process.cwd()`.  This is much more intuitive.
 
 ## Multiple Bundles Example
 
