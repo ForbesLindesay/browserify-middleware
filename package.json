@@ -21,11 +21,10 @@
   "devDependencies": {
     "express": "~3.1.0",
     "hyperquest": "~0.1.0",
-    "concat-stream": "~0.1.1"
+    "concat-stream": "~0.1.1",
+    "through": "~2.2.7"
   },
   "dependencies": {
-    "mkdirp": "~0.3.5",
-    "rimraf": "~2.1.4",
     "callsite": "~1.0.0",
     "browserify": "~2.7.1",
     "uglify-js": "~2.2.5"

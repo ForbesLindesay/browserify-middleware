@@ -2,11 +2,20 @@ var browserify = require('../');
 var express = require('express');
 var app = express();
 
-var options = {
+var live = {
+  debug: false,
+  minify: true,
+  cache: true,
+  gzip: true
+};
+var dev = {
   debug: true,
   minify: false,
-  cache: false
+  cache: false,
+  gzip: false
 };
+
+var options = dev;
 
 app.use('/js', browserify('./client/dir', options));
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream'], options));
