@@ -1,6 +1,13 @@
 # browserify-middleware
 
-express middleware for browserify v2 with sensible defaults for the ultimate in ease of use.
+express middleware for browserify v2 with sensible defaults for the ultimate in ease of use.  In addition to the basics, browserify-middleware has the following features out of the box:
+
+ - source-maps are automatically enabled for debugging
+ - minification automatically enabled for production
+ - gzip automatically enabled for production
+ - etags for caching automatically enabled for produciton
+
+If you think I've missed something, be sure to open an issue or submit a pull request.
 
 [![Build Status](https://travis-ci.org/ForbesLindesay/browserify-middleware.png?branch=master)](https://travis-ci.org/ForbesLindesay/browserify-middleware)
 [![Dependency Status](https://gemnasium.com/ForbesLindesay/browserify-middleware.png)](https://gemnasium.com/ForbesLindesay/browserify-middleware)
