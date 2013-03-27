@@ -6,6 +6,12 @@ var browserify = require('../');
 var express = require('express');
 var app = express();
 
+console.warn('  Each file is downloaded ~50 times in parallel to get some feel for how');
+console.warn('  performance scales.');
+console.warn();
+console.warn('  When comparing gzip and not gzip, don\'t forget to account for increased');
+console.warn('  time unzipping on the client.');
+
 app.use('/file/beep.js', browserify('./directory/beep.js', {
   cache: false,
   gzip: false,
@@ -104,9 +110,55 @@ function get(path, optimised, cb) {
     }));
   })
 }
+function getZip(path, optimised, cb) {
+  if (/non-existant/.test(path) || /file\.txt/.test(path)) {
+    return get(path, optimised, cb);
+  }
+  port(function (port) {
+    var erred = false;
+    hyperquest('http://localhost:' + port + (optimised ? '/opt' : '') + path, {headers: {'Accept-Encoding':'gzip'}},
+      function (err, res) {
+        erred = err || res.statusCode >= 400;
+        if (err) return cb(err);
+        if (res.statusCode >= 400) {
+          return cb(new Error('Server responded with status code ' + res.statusCode));
+        }
+      })
+      .pipe(require('zlib').createGunzip())
+      .pipe(concat(function (err, res) {
+        if (erred) return;
+        if (err) return cb(err);
+        return cb(null, res.toString());
+      }));
+  })
+}
 
 
-function test(optimised) {
+function test(optimised, get, it) {
+  var oldIt = it;
+  it = function (name, fn) {
+    return oldIt(name, function (done) {
+      this.slow(100);
+      fn(function (err) {
+        if (err) return done(err);
+        fn(function (err) {
+          if (err) return done(err);
+          var pending = 50;
+          for (var i = 0; i < 50; i++) {
+            fn(then);
+          };
+          var called = false;
+          function then(err) {
+            if (err && !called) {
+              called = true;
+              return done(err);
+            }
+            if (--pending === 0 && !called) return done();
+          }
+        })
+      })
+    });
+  };
   describe('file', function () {
     it('browserifies beep', function (done) {
       get('/file/beep.js', optimised, function (err, res) {
@@ -203,9 +255,14 @@ function test(optimised) {
 }
 
 describe('In NODE_ENV=development (default)', function () {
-  test(false);
+  test(false, get, it);
 });
 
 describe('In NODE_ENV=production', function () {
-  test(true);
+  describe('without gzip', function () {
+    test(true, getZip, it);
+  });
+  describe('with gzip', function () {
+    test(true, get, it);
+  });
 });
