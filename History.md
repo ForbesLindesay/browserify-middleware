@@ -1,3 +1,11 @@
+1.2.0 / 2013-03-27
+==================
+
+  * update browserify to 2.9.0
+  * Add vary header so proxy caches don't serve gzipped to clients that can't handle it
+  * Added Content-Length header (added efficiency)
+  * Added HEAD support (doesn't attempt to send code)
+
 1.1.0 / 2013-03-24
 ==================
 
