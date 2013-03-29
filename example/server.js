@@ -2,24 +2,12 @@ var browserify = require('../');
 var express = require('express');
 var app = express();
 
-var live = {
-  debug: false,
-  minify: true,
-  cache: true,
-  gzip: true
-};
-var dev = {
-  debug: true,
-  minify: false,
-  cache: false,
-  gzip: false
-};
+browserify.settings.production('cache', '7 days');
+browserify.settings.mode = 'production';
 
-var options = dev;
-
-app.use('/js', browserify('./client/dir', options));
-app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream'], options));
-app.get('/js/file.js', browserify('./client/file.js', options));
+app.use('/js', browserify('./client/dir'));
+app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
+app.get('/js/file.js', browserify('./client/file.js'));
 
 app.use(express.static(__dirname + '/static'));
 

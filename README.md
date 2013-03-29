@@ -65,29 +65,109 @@ This way, booth `beep.js` and `boop.js` can `require` the shared modules (`hyper
 
 ## API
 
-### browserify(path, options)
+### `browserify('./path/to/file.js'[, options])`
 
-#### path
+Return the middleware to serve a browserified version of the file.  The file path is relative to the calling module, not to `process.cwd()`.
 
-If the path is a relative path, it is treated as relative to the file which called `browserify`, not relative to the current working directory.  This lets you just use paths like you would with require, instead of worrying about `join` and `__dirname` etc.
+### `browserify('./path/to/directory/'[, options])`
 
-If path is a relative or absolute path to a "directory" then the entire directory is served, including subdirectories.  All JavaScript files in that directory are made available through browserify.
+Return the middleware to serve a browserified version of all the files in a directory.  The directory path is relative to the calling module, not to `process.cwd()`.
 
-If path ia a relative or absolute path to a "file" then that file is served.
+### `browserify(['module-a', 'module-b'][, options])`
 
-If path is an array of module names, those modules are served, in a form that allows them to be loaded on the client side using `require`.
+Return middleware that will expose `require` for each of the modules in the array.  This will work even if those modules are also in the `external` array.
 
-#### options
+### `options` / `settings`
 
-There are two types of options, those that impact "Serving" and those that impact "Bundling".  All the options have super-sensible defaults, so you probably won't need to touch any of them.  You will need to use the `external` option if using the "multiple bundles" feature.  You will need to use `options.transform` if you wish to work in an alternative language (such as coffee-script) or support loading text files (with something like [rfileify](https://github.com/ForbesLindesay/rfileify)).
+The `options` passed to each middleware function override the defaults specified in `settings`.
 
-##### Serving
+Setings has two properties `settings.production` and `settings.development` which specify the default settings for each environment.  The current environment is specified by `settings.mode` and defaults to `process.env.NODE_ENV || 'development'`
 
-- `opitons.cache` - Should files be cached in memory (default: `true` in production `false` in development)
-- `options.minify` - Should the files be minified before serving (default: `true` in production `false` in development)
-- `options.gzip` - Should the files be gzipped when supported by the client (default: `true` in production `false` in development)
+Production defaults:
 
-##### Bundling
+```javascript
+production.cache = true; // equivalent to "public, max-age=60"
+production.minify = true;
+production.gzip = true;
+production.debug = false;
+```
+
+To update:
+
+```javascript
+browserify.settings.production('cache', '7 days');
+```
+
+Development defaults:
+
+```javascript
+development.cache = false;
+development.minify = false;
+development.gzip = false;
+development.debug = true;
+```
+
+To update:
+
+```javascript
+browserify.settings.development('gzip', true);
+```
+
+The following defaults are the same for production and development:
+
+```javascript
+external = [];
+ignore = [];
+ignoreMissing = false;
+transform = [];
+insertGlobals = false;
+detectGlobals = true;
+standalone = false;
+```
+
+To update:
+
+```javascript
+browserify.settings('external', ['hyperquest']);
+//or
+browserify.settings({
+  ignoreMissing: true,
+  insertGlobals: true,
+  transform: ['rfileify']
+});
+```
+
+#### cache
+
+The cache setting determines how long content can be cached in the client's web browsers (and any caching proxies) and whether or not to cache bundles server side.  Any value other than `false` will result in them being cached server side.
+
+If cache is `true` the client will recieve Cache Control of `"public, max-age=60"`, which caches for 60 seconds.
+
+If cache is a `string` in the form accepted by [ms](https://npmjs.org/package/ms) it becomes: `"public, max-age=" + (ms(cache)/1000)`
+
+If cache is a `number`, it is treated as being in milliseconds so becomes: `"public, max-age=" + (cache/1000)`
+
+If cache is an `object` of the form `{private: true || false, maxAge: '10 minutes'}` it becomes the apropriate string.
+
+If cache is any other `string` it will be sent directly to the client.
+
+**N.B.** that if caching is enabled, the server never times out its cache, no matter what the timeout set for the client.
+
+#### minify
+
+If `minify` is `true`, UglifyJS will be used to minify the resulting code.  This is `true` by default in production.
+
+#### gzip
+
+If `gzip` is `true`, GZip will be enabled when clients support it.  This increases the memory required for caching by aproximately 50% but the speed boost can be considerable.  It is `true` by default in production.
+
+#### debug
+
+If `debug` is `true`, a source map will be added to the code.  This is very useful when debugging.  `debug` is `false` in produciton.
+
+#### Others
+
+The remaining settings are all passed through to browserify, you should look at [the browserify readme](https://github.com/substack/node-browserify) if you want to know more:
 
 - `options.external` - an array of module names that will be required from external bundles (see [browserify/multiple bundles](https://github.com/substack/node-browserify#multiple-bundles)) (default: `[]`)
 - `options.ignore` - an aray of module names that are prevented from showing up in the output bundle (default: `[]`)
@@ -95,8 +175,9 @@ There are two types of options, those that impact "Serving" and those that impac
 - `options.transform` - an array of strings or functions to transform top level modules (default: `[]`).
 - `options.insertGlobals` - set to true to always insert `process`, `global` etc. without analysing the AST for faster builds but larger bundles (Note that `options.minify` may cause the globals to be removed again anyway) (default: false)
 - `options.detectGlobals` - set to false to skip adding `process`, `global` etc.  Setting this to false may break more npm modules (default: true).
-- `options.debug` - Should source maps be enabled for easier debugging (default: `false` in production `true` in development)
 - `options.standalone` - Generate a standalone build (in a [umd](https://github.com/ForbesLindesay/umd) wrapper) with this name, you probably don't want this.
+
+You can optionally pass a single item instead of an array to any of the options that take an array.
 
 ## License
 

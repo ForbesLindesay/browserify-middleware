@@ -54,13 +54,15 @@ app.use('/mod.js', browserify(['require-test'], {
   cache: false,
   gzip: false,
   minify: false,
-  debug: true
+  debug: true,
+  external: ['require-test']
 }));
 app.use('/opt/mod.js', browserify(['require-test'], {
   cache: true,
   gzip: true,
   minify: true,
-  debug: false
+  debug: false,
+  external: ['require-test']
 }));
 
 app.get('/dir/file.txt', function (req, res) {
