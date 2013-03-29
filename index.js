@@ -25,6 +25,7 @@ exports.directory = require('./lib/directory');
 exports.file = require('./lib/file');
 exports.modules = require('./lib/modules');
 
+exports.settings = require('./lib/normalize');
 
 function directory(exclude) {
   var stack = callsite();
