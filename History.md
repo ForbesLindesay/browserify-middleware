@@ -1,3 +1,9 @@
+1.4.0 / 2013-03-29
+==================
+
+  * Add support for modifying Cache-Conrol
+  * Overhall settings (see readme for new settings API)
+
 1.3.0 / 2013-03-29
 ==================
 
