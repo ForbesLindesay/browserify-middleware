@@ -1,3 +1,9 @@
+1.4.1 / 2013-03-30
+==================
+
+  * update browserify to 2.10.2
+  * Fix `vary` not defined (thanks to [@vicapow](https://github.com/vicapow))
+
 1.4.0 / 2013-03-29
 ==================
 
