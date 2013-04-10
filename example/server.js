@@ -8,6 +8,7 @@ browserify.settings.mode = 'production';
 app.use('/js', browserify('./client/dir'));
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
 app.get('/js/file.js', browserify('./client/file.js'));
+app.get('/js/syntax-error.js', browserify('./client/syntax-error.js'));
 
 app.use(express.static(__dirname + '/static'));
 

@@ -11,6 +11,9 @@ console.warn('  performance scales.');
 console.warn();
 console.warn('  When comparing gzip and not gzip, don\'t forget to account for increased');
 console.warn('  time unzipping on the client.');
+console.warn();
+console.warn('  There will be `ParseError`s logged during the tests, these can be safely');
+console.warn('  ignored.');
 
 app.use('/file/beep.js', browserify('./directory/beep.js', {
   cache: false,
@@ -31,6 +34,18 @@ app.use('/file/boop.js', browserify('./directory/boop.js', {
   debug: true
 }));
 app.use('/opt/file/boop.js', browserify('./directory/boop.js', {
+  cache: true,
+  gzip: true,
+  minify: true,
+  debug: false
+}));
+app.use('/syntax-error.js', browserify('./directory/syntax-error.js', {
+  cache: false,
+  gzip: false,
+  minify: false,
+  debug: true
+}));
+app.use('/opt/syntax-error.js', browserify('./directory/syntax-error.js', {
   cache: true,
   gzip: true,
   minify: true,
@@ -102,7 +117,9 @@ function get(path, optimised, cb) {
       erred = err || res.statusCode >= 400;
       if (err) return cb(err);
       if (res.statusCode >= 400) {
-        return cb(new Error('Server responded with status code ' + res.statusCode));
+        var err = new Error('Server responded with status code ' + res.statusCode);
+        err.statusCode = res.statusCode;
+        return cb(err);
       }
     })
     .pipe(concat(function (err, res) {
@@ -117,21 +134,20 @@ function getZip(path, optimised, cb) {
     return get(path, optimised, cb);
   }
   port(function (port) {
-    var erred = false;
     hyperquest('http://localhost:' + port + (optimised ? '/opt' : '') + path, {headers: {'Accept-Encoding':'gzip'}},
       function (err, res) {
-        erred = err || res.statusCode >= 400;
         if (err) return cb(err);
         if (res.statusCode >= 400) {
-          return cb(new Error('Server responded with status code ' + res.statusCode));
+          var err = new Error('Server responded with status code ' + res.statusCode);
+          err.statusCode = res.statusCode;
+          return cb(err);
         }
+        this.pipe(require('zlib').createGunzip())
+            .pipe(concat(function (err, res) {
+              if (err) return cb(err);
+              return cb(null, res.toString());
+            }));
       })
-      .pipe(require('zlib').createGunzip())
-      .pipe(concat(function (err, res) {
-        if (erred) return;
-        if (err) return cb(err);
-        return cb(null, res.toString());
-      }));
   })
 }
 
@@ -143,6 +159,7 @@ function test(optimised, get, it) {
       this.slow(100);
       fn(function (err) {
         if (err) return done(err);
+        if (/syntax error/.test(name)) return done();
         fn(function (err) {
           if (err) return done(err);
           var pending = 50;
@@ -188,6 +205,12 @@ function test(optimised, get, it) {
         })
       });
     });
+    it('returns error code 500 if there is a syntax error', function (done) {
+      get('/syntax-error.js', optimised, function (err, res) {
+        assert.equal(err.statusCode, 500);
+        done();
+      });
+    })
   });
   describe('directory', function () {
     it('browserifies beep', function (done) {
