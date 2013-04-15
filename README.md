@@ -137,6 +137,19 @@ browserify.settings({
 });
 ```
 
+Custom Environments:
+
+You can also create a new custom environment:
+
+```javascript
+var test = browserify.settings.env('test');
+test('minify', true);
+//or
+test({
+  debug: true
+});
+```
+
 #### cache
 
 The cache setting determines how long content can be cached in the client's web browsers (and any caching proxies) and whether or not to cache bundles server side.  Any value other than `false` will result in them being cached server side.
