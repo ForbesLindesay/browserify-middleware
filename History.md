@@ -1,3 +1,14 @@
+1.7.1 / 2013-04-16
+==================
+
+  * add work arround for [substack/browserify#375](https://github.com/substack/node-browserify/pull/375)
+  * Return `env` if it already exists (thanks to [@mhart](https://github.com/mhart))
+
+1.7.0 / 2013-04-15
+==================
+
+  * Support custom environments
+
 1.6.0 / 2013-04-08
 ==================
 
