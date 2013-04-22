@@ -19,7 +19,7 @@
   "author": "ForbesLindesay",
   "license": "MIT",
   "devDependencies": {
-    "express": "~3.1",
+    "express": "~3.2",
     "hyperquest": "~0.1",
     "concat-stream": "~0.1",
     "mocha": "~1.9",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "callsite": "~1.0.0",
-    "browserify": "~2.12.0",
+    "browserify": "~2.13.2",
     "uglify-js": "~2.2.5",
     "ms": "~0.6.0"
   }
