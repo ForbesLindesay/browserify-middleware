@@ -1,3 +1,10 @@
+1.8.0 / 2013-04-22
+==================
+
+  * Update browserify to 2.13.2
+  * remove work arround for [substack/browserify#375](https://github.com/substack/node-browserify/pull/375)
+  * add patch for [substack/syntax-error#1](https://github.com/substack/node-syntax-error/pull/1)
+
 1.7.1 / 2013-04-16
 ==================
 
