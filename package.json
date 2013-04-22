@@ -3,7 +3,8 @@
   "version": "1.7.1",
   "description": "express middleware for browserify v2",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha -R spec",
+    "postinstall": "node patch.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "callsite": "~1.0.0",
     "browserify": "~2.13.2",
     "uglify-js": "~2.2.5",
-    "ms": "~0.6.0"
+    "ms": "~0.6.0",
+    "syntax-error": "0.0.0"
   }
 }
