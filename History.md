@@ -1,3 +1,8 @@
+1.8.1 / 2013-04-22
+==================
+
+  * Remove patch for [substack/syntax-error#1](https://github.com/substack/node-syntax-error/pull/1)
+
 1.8.0 / 2013-04-22
 ==================
 
