@@ -1,3 +1,8 @@
+1.8.3 / 2013-04-30
+==================
+
+  * Fix reservedKeys logic for settings (thanks to [@mhart](https://github.com/mhart))
+
 1.8.2 / 2013-04-30
 ==================
 
