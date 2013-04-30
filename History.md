@@ -1,3 +1,8 @@
+1.8.2 / 2013-04-30
+==================
+
+  * Fix key check for setter when given an object (thanks to [@mhart](https://github.com/mhart))
+
 1.8.1 / 2013-04-22
 ==================
 
