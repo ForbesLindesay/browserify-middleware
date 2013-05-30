@@ -13,6 +13,7 @@ If you think I've missed something, be sure to open an issue or submit a pull re
 
 [![Build Status](https://travis-ci.org/ForbesLindesay/browserify-middleware.png?branch=master)](https://travis-ci.org/ForbesLindesay/browserify-middleware)
 [![Dependency Status](https://gemnasium.com/ForbesLindesay/browserify-middleware.png)](https://gemnasium.com/ForbesLindesay/browserify-middleware)
+[![NPM version](https://badge.fury.io/js/browserify-middleware.png)](http://badge.fury.io/js/browserify-middleware)
 
 ## Usage
 
