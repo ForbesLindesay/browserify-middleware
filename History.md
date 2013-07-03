@@ -1,3 +1,9 @@
+1.13.1 / 2013-07-03
+===================
+
+  * Add support for using without express (except serving a directory)
+  * Fix `opts.noParse` (thanks to [@haimschindler](https://github.com/haimschindler))
+
 1.13.0 / 2013-06-26
 ===================
 
