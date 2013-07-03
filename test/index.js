@@ -28,6 +28,9 @@ app.get = function (path, handler) {
   })
 }
 
+app.use('/file/jqparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false}))
+app.use('/file/jqnoparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false, noParse: ['./directory/jquery.min.js']}))
+
 app.use('/file/beep.js', browserify('./directory/beep.js', {
   cache: false,
   gzip: false,
@@ -313,5 +316,23 @@ describe('In NODE_ENV=production', function () {
   });
   describe('with gzip', function () {
     test(true, get, it);
+  });
+});
+
+describe('options.noParse', function () {
+  it('speeds things up by at least a factor of 10 (for jQuery)', function (done) {
+    this.slow(1000)
+    this.timeout(10000)
+    var start = new Date();
+    get('/file/jqparse.js', false, function (err, res) {
+      if (err) return done(err);
+      var middle = new Date();
+      get('/file/jqnoparse.js', false, function (err, res) {
+        if (err) return done(err);
+        var end = new Date();
+        assert((middle - start) > (end - middle) * 10);
+        done();
+      });
+    });
   });
 });
