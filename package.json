@@ -19,11 +19,10 @@
   "author": "ForbesLindesay",
   "license": "MIT",
   "devDependencies": {
-    "express": "~3.2",
-    "hyperquest": "~0.1",
-    "concat-stream": "~0.1",
-    "mocha": "~1.9",
-    "require-test": "~1.0"
+    "hyperquest": "*",
+    "concat-stream": "*",
+    "mocha": "*",
+    "require-test": "1.0.0"
   },
   "dependencies": {
     "callsite": "~1.0.0",

@@ -2,18 +2,31 @@ var hyperquest = require('hyperquest');
 var concat = require('concat-stream');
 var assert = require('assert');
 var vm = require('vm');
+var http = require('http');
 var browserify = require('../');
-var express = require('express');
-var app = express();
 
 console.warn('  Each file is downloaded ~50 times in parallel to get some feel for how');
 console.warn('  performance scales.');
 console.warn();
 console.warn('  When comparing gzip and not gzip, don\'t forget to account for increased');
 console.warn('  time unzipping on the client.');
-console.warn();
-console.warn('  There will be `ParseError`s logged during the tests, these can be safely');
-console.warn('  ignored.');
+
+var app = {middleware: []}
+app.use = function (path, handler) {
+  app.middleware.push(function (url, req, res, next) {
+    if (url.pathname.indexOf(path) !== 0) return next()
+    else {
+      req.path = url.pathname.replace(path, '')
+      handler(req, res, next)
+    }
+  })
+}
+app.get = function (path, handler) {
+  app.middleware.push(function (url, req, res, next) {
+    if (url.pathname !== path) return next()
+    else handler(req, res, next)
+  })
+}
 
 app.use('/file/beep.js', browserify('./directory/beep.js', {
   cache: false,
@@ -81,16 +94,16 @@ app.use('/opt/mod.js', browserify(['require-test'], {
 }));
 
 app.get('/dir/file.txt', function (req, res) {
-  res.send('foo');
+  res.end('foo');
 });
 app.get('/opt/dir/file.txt', function (req, res) {
-  res.send('foo');
+  res.end('foo');
 });
 app.get('/dir/non-existant.js', function (req, res) {
-  res.send('bar');
+  res.end('bar');
 });
 app.get('/opt/dir/non-existant.js', function (req, res) {
-  res.send('bar');
+  res.end('bar');
 });
 
 var port;
@@ -99,7 +112,20 @@ var port;
   port = function (fn) {
     listeners.push(fn);
   };
-  app.listen(0, function () {
+  http.createServer(function (req, res) {
+    var url = require('url').parse(req.url)
+    var i = 0
+    function next(err) {
+      if (err) return res.statusCode = 500, res.end(err.stack || err.message || err);
+      if (i === app.middleware.length) {
+        console.dir(url)
+        return res.statusCode = 404, res.end('404 file not found');
+      }
+      app.middleware[i++](url, req, res, next)
+    }
+    next()
+  })
+  .listen(0, function () {
     var pt = this.address().port;
     while (listeners.length) {
       listeners.shift()(pt);
@@ -122,9 +148,8 @@ function get(path, optimised, cb) {
         return cb(err);
       }
     })
-    .pipe(concat(function (err, res) {
+    .pipe(concat(function (res) {
       if (erred) return;
-      if (err) return cb(err);
       return cb(null, res.toString());
     }));
   })
@@ -143,8 +168,7 @@ function getZip(path, optimised, cb) {
           return cb(err);
         }
         this.pipe(require('zlib').createGunzip())
-            .pipe(concat(function (err, res) {
-              if (err) return cb(err);
+            .pipe(concat(function (res) {
               return cb(null, res.toString());
             }));
       })
