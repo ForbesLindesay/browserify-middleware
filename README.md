@@ -2,12 +2,16 @@
 
 <img src="http://i.imgur.com/6cyfaYS.png" align="right" />
 
-express middleware for browserify v2 with sensible defaults for the ultimate in ease of use.  In addition to the basics, browserify-middleware has the following features out of the box:
+**middleware for browserify v2 with sensible defaults for the ultimate in ease of use**
+
+In addition to the basics, browserify-middleware has the following features out of the box:
 
  - source-maps are automatically enabled for debugging
  - minification automatically enabled for production
  - gzip automatically enabled for production
  - etags for caching automatically enabled for produciton
+
+With the exception of serving up directories (which requires `req.path` from express) everything is entirely framework independant.  Simply pass in `req` `res`, and a `callback` that will only be called in the event of an error.
 
 If you think I've missed something, be sure to open an issue or submit a pull request.
 
