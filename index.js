@@ -13,7 +13,18 @@ function browserify(path, options) {
   if (resolve(path) === normalize(path)) {
     path = normalize(path);
   } else {
-    path = resolve(directory(), path);
+    var dir = directory();
+    options = exports.settings.normalize(options);
+    options.noParse = options.noParse.map(function (path) {
+      if (path[0] != '.') return //support `['jquery']` as well as `['./src/jquery.js']`
+      if (resolve(path) === normalize(path)) {
+        return normalize(path);
+      } else {
+        return resolve(dir, path);
+      }
+    })
+    path = resolve(dir, path);
+
   }
   if (stat(path).isDirectory()) {
     return exports.directory(path, options);
