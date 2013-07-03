@@ -5,9 +5,9 @@ var equal = require('assert').equal;
 describe('settings', function () {
   describe('.cache', function () {
     describe('default development', function () {
-      it('is `false`', function () {
+      it('is `"dynamic"`', function () {
         settings.mode = 'development';
-        equal(normalize().cache, false);
+        equal(normalize().cache, 'dynamic');
         settings.mode = 'development';
       });
     });
