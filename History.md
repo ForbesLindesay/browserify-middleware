@@ -1,3 +1,9 @@
+1.14.0 / 2013-07-07
+===================
+
+  * Implement dynamic caching (`{cache: 'dynamic'}` is now the default when in development mode)
+  * Update browserify to 2.23.1
+
 1.13.1 / 2013-07-03
 ===================
 
