@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "callsite": "~1.0.0",
-    "browserify": "~2.22.0",
-    "uglify-js": "~2.3.5",
-    "ms": "~0.6.0"
+    "browserify": "~2.23.1",
+    "uglify-js": "~2.3.6",
+    "ms": "~0.6.1"
   }
 }
