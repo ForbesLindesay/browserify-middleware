@@ -32,7 +32,7 @@ app.use('/file/jqparse.js', browserify('./directory/jquery.min.js', {cache: fals
 app.use('/file/jqnoparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false, noParse: ['./directory/jquery.min.js']}))
 
 app.use('/file/beep.js', browserify('./directory/beep.js', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -44,7 +44,7 @@ app.use('/opt/file/beep.js', browserify('./directory/beep.js', {
   debug: false
 }));
 app.use('/file/boop.js', browserify('./directory/boop.js', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -56,7 +56,7 @@ app.use('/opt/file/boop.js', browserify('./directory/boop.js', {
   debug: false
 }));
 app.use('/syntax-error.js', browserify('./directory/syntax-error.js', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -69,7 +69,7 @@ app.use('/opt/syntax-error.js', browserify('./directory/syntax-error.js', {
 }));
 
 app.use('/dir', browserify('./directory', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -82,7 +82,7 @@ app.use('/opt/dir', browserify('./directory', {
 }));
 
 app.use('/mod.js', browserify(['require-test'], {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true,
