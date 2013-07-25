@@ -2,8 +2,7 @@ var browserify = require('../');
 var express = require('express');
 var app = express();
 
-browserify.settings.production('cache', '7 days');
-browserify.settings.mode = 'production';
+browserify.settings.development('basedir', __dirname);
 
 app.use('/js', browserify('./client/dir'));
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));

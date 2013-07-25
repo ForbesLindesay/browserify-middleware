@@ -183,6 +183,10 @@ If `gzip` is `true`, GZip will be enabled when clients support it.  This increas
 
 If `debug` is `true`, a source map will be added to the code.  This is very useful when debugging.  `debug` is `false` in produciton.
 
+#### basedir
+
+If `debug` is `true` you can provide a `string` pathname for basedir and the paths of your files in the source-map will be displayed relative to that file.  This is great for hiding the details of your local file system or tidying up the debugging of a large app.
+
 #### Others
 
 The remaining settings are all passed through to browserify, you should look at [the browserify readme](https://github.com/substack/node-browserify) if you want to know more:
