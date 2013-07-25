@@ -28,6 +28,7 @@
     "callsite": "~1.0.0",
     "browserify": "~2.24.2",
     "uglify-js": "~2.3.6",
-    "ms": "~0.6.1"
+    "ms": "~0.6.1",
+    "mold-source-map": "0.2.0"
   }
 }
