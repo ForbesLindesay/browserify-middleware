@@ -1,3 +1,9 @@
+1.15.0 / 2013-07-25
+===================
+
+  * Give source-maps the correct path separators on windows (which leads to a proper folder browser in devtools)
+  * Add a `basedir` option to display source map paths relative to
+
 1.14.1 / 2013-07-09
 ===================
 
