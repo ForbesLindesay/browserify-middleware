@@ -203,14 +203,12 @@ The remaining settings are all passed through to browserify, you should look at 
 - `options.insertGlobals` - set to true to always insert `process`, `global` etc. without analysing the AST for faster builds but larger bundles (Note that `options.minify` may cause the globals to be removed again anyway) (default: false)
 - `options.detectGlobals` - set to false to skip adding `process`, `global` etc.  Setting this to false may break more npm modules (default: true).
 - `options.noParse` - an array of module names that should not be parsed for `require` statements of node.js style globals, can speed up loading things like jQuery that are huge but never use `require`.
-- `options.standalone` - Generate a standalone build (in a [umd](https://github.com/ForbesLindesay/umd) wrapper) with this name, you probably don't want this.
+- `options.standalone` - generate a standalone build (in a [umd](https://github.com/ForbesLindesay/umd) wrapper) with this name, you probably don't want this.
 
 You can optionally pass a single item instead of an array to any of the options that take an array.
 
 ## License
 
   MIT
-  
-  If you find it useful, a payment via [gittip](https://www.gittip.com/ForbesLindesay) would be appreciated.
 
-![viewcount](https://viewcount.jepso.com/count/ForbesLindesay/browserify-middleware.png)
+  If you find it useful, a donation via [gittip](https://www.gittip.com/ForbesLindesay) would be appreciated.
