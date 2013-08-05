@@ -1,3 +1,11 @@
+1.17.0 / 2013-08-05
+===================
+
+  * Update browserify to 2.26.0
+  * You can serve non-js files via the `grep` option (thanks to [@maxnordlund](https://github.com/maxnordlund))
+  * Fix double compile with dynamic caching (thanks to [@ef4](https://github.com/ef4))
+  * Fix noParse for bare module names (thanks to [@ef4](https://github.com/ef4))
+
 1.16.0 / 2013-07-25
 ===================
 
