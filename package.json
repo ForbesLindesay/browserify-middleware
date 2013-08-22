@@ -22,7 +22,8 @@
     "hyperquest": "*",
     "concat-stream": "*",
     "mocha": "*",
-    "require-test": "1.0.0"
+    "require-test": "1.0.0",
+    "express": "*"
   },
   "dependencies": {
     "callsite": "~1.0.0",
