@@ -67,6 +67,13 @@ app.use('/opt/syntax-error.js', browserify('./directory/syntax-error.js', {
   minify: true,
   debug: false
 }));
+app.use('/weirddep.js', browserify('./directory/weirddep.js', {
+  extensions: ['.weird']
+}));
+app.use('/opt/weirddep.js', browserify('./directory/weirddep.js', {
+  extensions: ['.weird'],
+  gzip: true
+}));
 
 app.use('/dir', browserify('./directory', {
   cache: 'dynamic',
@@ -301,6 +308,21 @@ function test(optimised, get, it) {
             }
           }
         });
+      });
+    });
+  });
+  describe('extensions', function () {
+    it('includes files required with weird extensions', function (done) {
+      get('/weirddep.js', optimised, function (err, res) {
+        if (err) return done(err);
+        vm.runInNewContext(res, {
+          console: {
+            log: function (txt) {
+              assert.equal(txt, 'this is a weird file to require');
+              done();
+            }
+          }
+        })
       });
     });
   });
