@@ -2,7 +2,7 @@
 ===================
 
   * Update browserify to 2.33.0
-  * Support options.extensions
+  * Support options.extensions (thanks to [@refractalize](https://github.com/refractalize))
 
 1.18.0 / 2013-09-23
 ===================
