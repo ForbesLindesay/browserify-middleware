@@ -1,3 +1,61 @@
+1.19.0 / 2013-09-30
+===================
+
+  * Update browserify to 2.33.0
+  * Support options.extensions (thanks to [@refractalize](https://github.com/refractalize))
+
+1.18.0 / 2013-09-23
+===================
+
+  * Update browserify to 2.32.2
+
+1.17.2 / 2013-08-25
+===================
+
+  * Update browserify to 2.29.0
+
+1.17.1 / 2013-08-25
+===================
+
+  * Update browserify to 2.28.0
+  * Update uglify-js to 2.4.0
+
+1.17.0 / 2013-08-05
+===================
+
+  * Update browserify to 2.26.0
+  * You can serve non-js files via the `grep` option (thanks to [@maxnordlund](https://github.com/maxnordlund))
+  * Fix double compile with dynamic caching (thanks to [@ef4](https://github.com/ef4))
+  * Fix noParse for bare module names (thanks to [@ef4](https://github.com/ef4))
+
+1.16.0 / 2013-07-25
+===================
+
+  * Update browserify to 2.25.1
+
+1.15.0 / 2013-07-25
+===================
+
+  * Give source-maps the correct path separators on windows (which leads to a proper folder browser in devtools)
+  * Add a `basedir` option to display source map paths relative to
+
+1.14.1 / 2013-07-09
+===================
+
+  * Update browserify to 2.24.2
+
+1.14.0 / 2013-07-07
+===================
+
+  * Implement dynamic caching (`{cache: 'dynamic'}` is now the default when in development mode)
+  * Update browserify to 2.23.1
+
+1.13.1 / 2013-07-03
+===================
+
+  * Add support for using without express (except serving a directory)
+  * Fix `opts.noParse` (thanks to [@haimschindler](https://github.com/haimschindler))
+
 1.13.0 / 2013-06-26
 ===================
 

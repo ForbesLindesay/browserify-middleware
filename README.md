@@ -2,12 +2,16 @@
 
 <img src="http://i.imgur.com/6cyfaYS.png" align="right" />
 
-express middleware for browserify v2 with sensible defaults for the ultimate in ease of use.  In addition to the basics, browserify-middleware has the following features out of the box:
+**middleware for browserify v2 with sensible defaults for the ultimate in ease of use**
+
+In addition to the basics, browserify-middleware has the following features out of the box:
 
  - source-maps are automatically enabled for debugging
  - minification automatically enabled for production
  - gzip automatically enabled for production
  - etags for caching automatically enabled for produciton
+
+With the exception of serving up directories (which requires `req.path` from express) everything is entirely framework independant.  Simply pass in `req` `res`, and a `callback` that will only be called in the event of an error.
 
 If you think I've missed something, be sure to open an issue or submit a pull request.
 
@@ -124,6 +128,7 @@ transform = [];
 insertGlobals = false;
 detectGlobals = true;
 standalone = false;
+grep = /\.js$/
 ```
 
 To update:
@@ -179,6 +184,14 @@ If `gzip` is `true`, GZip will be enabled when clients support it.  This increas
 
 If `debug` is `true`, a source map will be added to the code.  This is very useful when debugging.  `debug` is `false` in produciton.
 
+#### basedir
+
+If `debug` is `true` you can provide a `string` pathname for basedir and the paths of your files in the source-map will be displayed relative to that file.  This is great for hiding the details of your local file system or tidying up the debugging of a large app.
+
+#### grep
+
+The regular expression, something like [`/\.(?:js|coffee|ls)$/`](http://tinyurl.com/pawk7cu), that a filename must pass to be served using browserify from a directory.
+
 #### Others
 
 The remaining settings are all passed through to browserify, you should look at [the browserify readme](https://github.com/substack/node-browserify) if you want to know more:
@@ -190,14 +203,13 @@ The remaining settings are all passed through to browserify, you should look at 
 - `options.insertGlobals` - set to true to always insert `process`, `global` etc. without analysing the AST for faster builds but larger bundles (Note that `options.minify` may cause the globals to be removed again anyway) (default: false)
 - `options.detectGlobals` - set to false to skip adding `process`, `global` etc.  Setting this to false may break more npm modules (default: true).
 - `options.noParse` - an array of module names that should not be parsed for `require` statements of node.js style globals, can speed up loading things like jQuery that are huge but never use `require`.
-- `options.standalone` - Generate a standalone build (in a [umd](https://github.com/ForbesLindesay/umd) wrapper) with this name, you probably don't want this.
+- `options.standalone` - generate a standalone build (in a [umd](https://github.com/ForbesLindesay/umd) wrapper) with this name, you probably don't want this.
+- `options.extensions` - an array of optional extra extensions for the module lookup machinery to use when the extension has not been specified. By default browserify considers only `.js` and `.json` files in such cases.
 
 You can optionally pass a single item instead of an array to any of the options that take an array.
 
 ## License
 
   MIT
-  
-  If you find it useful, a payment via [gittip](https://www.gittip.com/ForbesLindesay) would be appreciated.
 
-![viewcount](https://viewcount.jepso.com/count/ForbesLindesay/browserify-middleware.png)
+  If you find it useful, a donation via [gittip](https://www.gittip.com/ForbesLindesay) would be appreciated.

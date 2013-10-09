@@ -2,21 +2,37 @@ var hyperquest = require('hyperquest');
 var concat = require('concat-stream');
 var assert = require('assert');
 var vm = require('vm');
+var http = require('http');
 var browserify = require('../');
-var express = require('express');
-var app = express();
 
 console.warn('  Each file is downloaded ~50 times in parallel to get some feel for how');
 console.warn('  performance scales.');
 console.warn();
 console.warn('  When comparing gzip and not gzip, don\'t forget to account for increased');
 console.warn('  time unzipping on the client.');
-console.warn();
-console.warn('  There will be `ParseError`s logged during the tests, these can be safely');
-console.warn('  ignored.');
+
+var app = {middleware: []}
+app.use = function (path, handler) {
+  app.middleware.push(function (url, req, res, next) {
+    if (url.pathname.indexOf(path) !== 0) return next()
+    else {
+      req.path = url.pathname.replace(path, '')
+      handler(req, res, next)
+    }
+  })
+}
+app.get = function (path, handler) {
+  app.middleware.push(function (url, req, res, next) {
+    if (url.pathname !== path) return next()
+    else handler(req, res, next)
+  })
+}
+
+app.use('/file/jqparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false}))
+app.use('/file/jqnoparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false, noParse: ['./directory/jquery.min.js']}))
 
 app.use('/file/beep.js', browserify('./directory/beep.js', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -28,7 +44,7 @@ app.use('/opt/file/beep.js', browserify('./directory/beep.js', {
   debug: false
 }));
 app.use('/file/boop.js', browserify('./directory/boop.js', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -40,7 +56,7 @@ app.use('/opt/file/boop.js', browserify('./directory/boop.js', {
   debug: false
 }));
 app.use('/syntax-error.js', browserify('./directory/syntax-error.js', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -51,9 +67,16 @@ app.use('/opt/syntax-error.js', browserify('./directory/syntax-error.js', {
   minify: true,
   debug: false
 }));
+app.use('/weirddep.js', browserify('./directory/weirddep.js', {
+  extensions: ['.weird']
+}));
+app.use('/opt/weirddep.js', browserify('./directory/weirddep.js', {
+  extensions: ['.weird'],
+  gzip: true
+}));
 
 app.use('/dir', browserify('./directory', {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
@@ -66,7 +89,7 @@ app.use('/opt/dir', browserify('./directory', {
 }));
 
 app.use('/mod.js', browserify(['require-test'], {
-  cache: false,
+  cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true,
@@ -109,16 +132,16 @@ app.use('/opt/modObjLong.js', browserify([{module:'require-test', options:{expos
 }));
 
 app.get('/dir/file.txt', function (req, res) {
-  res.send('foo');
+  res.end('foo');
 });
 app.get('/opt/dir/file.txt', function (req, res) {
-  res.send('foo');
+  res.end('foo');
 });
 app.get('/dir/non-existant.js', function (req, res) {
-  res.send('bar');
+  res.end('bar');
 });
 app.get('/opt/dir/non-existant.js', function (req, res) {
-  res.send('bar');
+  res.end('bar');
 });
 
 var port;
@@ -127,7 +150,20 @@ var port;
   port = function (fn) {
     listeners.push(fn);
   };
-  app.listen(0, function () {
+  http.createServer(function (req, res) {
+    var url = require('url').parse(req.url)
+    var i = 0
+    function next(err) {
+      if (err) return res.statusCode = 500, res.end(err.stack || err.message || err);
+      if (i === app.middleware.length) {
+        console.dir(url)
+        return res.statusCode = 404, res.end('404 file not found');
+      }
+      app.middleware[i++](url, req, res, next)
+    }
+    next()
+  })
+  .listen(0, function () {
     var pt = this.address().port;
     while (listeners.length) {
       listeners.shift()(pt);
@@ -150,9 +186,8 @@ function get(path, optimised, cb) {
         return cb(err);
       }
     })
-    .pipe(concat(function (err, res) {
+    .pipe(concat(function (res) {
       if (erred) return;
-      if (err) return cb(err);
       return cb(null, res.toString());
     }));
   })
@@ -171,8 +206,7 @@ function getZip(path, optimised, cb) {
           return cb(err);
         }
         this.pipe(require('zlib').createGunzip())
-            .pipe(concat(function (err, res) {
-              if (err) return cb(err);
+            .pipe(concat(function (res) {
               return cb(null, res.toString());
             }));
       })
@@ -281,29 +315,6 @@ function test(optimised, get, it) {
         done();
       });
     });
-  });
-  describe('package', function () {
-    it('makes require available', function (done) {
-      get('/mod.js', optimised, function (err, res) {
-        if (err) return done(err);
-        //assert.equal(res, '');
-        vm.runInNewContext(res, {
-          console: {
-            log: function () {
-              throw new Error('Module should wait to be required');
-            }
-          }
-        });
-        vm.runInNewContext(res + '\nrequire("require-test");', {
-          console: {
-            log: function (res) {
-              assert.equal(res, 'required');
-              done();
-            }
-          }
-        });
-      });
-    });
     it('makes require available (using short module options object)', function (done) {
       get('/modObjShort.js', optimised, function (err, res) {
         if (err) return done(err);
@@ -347,6 +358,44 @@ function test(optimised, get, it) {
       });
     });
   });
+  describe('package', function () {
+    it('makes require available', function (done) {
+      get('/mod.js', optimised, function (err, res) {
+        if (err) return done(err);
+        //assert.equal(res, '');
+        vm.runInNewContext(res, {
+          console: {
+            log: function () {
+              throw new Error('Module should wait to be required');
+            }
+          }
+        });
+        vm.runInNewContext(res + '\nrequire("require-test");', {
+          console: {
+            log: function (res) {
+              assert.equal(res, 'required');
+              done();
+            }
+          }
+        });
+      });
+    });
+  });
+  describe('extensions', function () {
+    it('includes files required with weird extensions', function (done) {
+      get('/weirddep.js', optimised, function (err, res) {
+        if (err) return done(err);
+        vm.runInNewContext(res, {
+          console: {
+            log: function (txt) {
+              assert.equal(txt, 'this is a weird file to require');
+              done();
+            }
+          }
+        })
+      });
+    });
+  });
 }
 
 describe('In NODE_ENV=development (default)', function () {
@@ -359,5 +408,23 @@ describe('In NODE_ENV=production', function () {
   });
   describe('with gzip', function () {
     test(true, get, it);
+  });
+});
+
+describe('options.noParse', function () {
+  it('speeds things up by at least a factor of 10 (for jQuery)', function (done) {
+    this.slow(1000)
+    this.timeout(10000)
+    var start = new Date();
+    get('/file/jqparse.js', false, function (err, res) {
+      if (err) return done(err);
+      var middle = new Date();
+      get('/file/jqnoparse.js', false, function (err, res) {
+        if (err) return done(err);
+        var end = new Date();
+        assert((middle - start) > (end - middle) * 10);
+        done();
+      });
+    });
   });
 });

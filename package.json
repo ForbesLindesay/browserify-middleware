@@ -1,6 +1,6 @@
 {
   "name": "browserify-middleware",
-  "version": "1.13.0",
+  "version": "1.19.0",
   "description": "express middleware for browserify v2",
   "scripts": {
     "test": "mocha -R spec"
@@ -19,16 +19,17 @@
   "author": "ForbesLindesay",
   "license": "MIT",
   "devDependencies": {
-    "express": "~3.2",
-    "hyperquest": "~0.1",
-    "concat-stream": "~0.1",
-    "mocha": "~1.9",
-    "require-test": "~1.0"
+    "hyperquest": "*",
+    "concat-stream": "*",
+    "mocha": "*",
+    "require-test": "1.0.0",
+    "express": "*"
   },
   "dependencies": {
     "callsite": "~1.0.0",
-    "browserify": "~2.22.0",
-    "uglify-js": "~2.3.5",
-    "ms": "~0.6.0"
+    "browserify": "~2.33.0",
+    "uglify-js": "~2.4.0",
+    "ms": "~0.6.1",
+    "mold-source-map": "0.2.0"
   }
 }
