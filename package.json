@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "callsite": "~1.0.0",
-    "browserify": "~2.33.0",
+    "browserify": "~2.35.4",
     "uglify-js": "~2.4.0",
     "ms": "~0.6.1",
     "mold-source-map": "0.2.0"
