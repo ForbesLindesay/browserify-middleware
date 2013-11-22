@@ -1,3 +1,10 @@
+1.20.0 / 2013-11-22
+===================
+
+  * Update browserify to 2.35.0
+  * Update mold-source-map to 0.3.0
+  * Refactor (thanks to [duereg](https://github.com/duereg))
+
 1.19.0 / 2013-09-30
 ===================
 
