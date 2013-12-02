@@ -30,6 +30,7 @@
     "browserify": "~2.36.0",
     "uglify-js": "~2.4.0",
     "ms": "~0.6.1",
-    "mold-source-map": "0.3.0"
+    "mold-source-map": "0.3.0",
+    "browserify-shim": "~2.0.9"
   }
 }
