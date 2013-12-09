@@ -383,7 +383,7 @@ describe('options.noParse', function () {
       get('/file/jqnoparse.js', false, function (err, res) {
         if (err) return done(err);
         var end = new Date();
-        assert((middle - start) > (end - middle) * 10);
+        assert((middle - start) > (end - middle) * 10, 'Without noParse was ' + (middle - start) + ' with noParse was ' + (end - middle));
         done();
       });
     });
