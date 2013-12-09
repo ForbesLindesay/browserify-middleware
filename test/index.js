@@ -373,7 +373,7 @@ describe('In NODE_ENV=production', function () {
 });
 
 describe('options.noParse', function () {
-  it('speeds things up by at least a factor of 10 (for jQuery)', function (done) {
+  it('speeds things up by at least a factor of 5 (for jQuery)', function (done) {
     this.slow(1000)
     this.timeout(10000)
     var start = new Date();
@@ -383,7 +383,7 @@ describe('options.noParse', function () {
       get('/file/jqnoparse.js', false, function (err, res) {
         if (err) return done(err);
         var end = new Date();
-        assert((middle - start) > (end - middle) * 10, 'Without noParse was ' + (middle - start) + ' with noParse was ' + (end - middle));
+        assert((middle - start) > (end - middle) * 5, 'Without noParse was ' + (middle - start) + ' with noParse was ' + (end - middle));
         done();
       });
     });
