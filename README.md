@@ -78,9 +78,13 @@ Return the middleware to serve a browserified version of the file.  The file pat
 
 Return the middleware to serve a browserified version of all the files in a directory.  The directory path is relative to the calling module, not to `process.cwd()`.
 
-### `browserify(['module-a', 'module-b', {'c':'module-c'}, {module:'module-d', options:{expose: 'dee'}}][, options])`
+### `browserify(['module-a', 'module-b'][, options])`
 
-Return middleware that will expose `require` for each of the modules in the array.  This will work even if those modules are also in the `external` array (unless, of course, you manually expose a module as something in the external list, that's just crazy talk).
+Return middleware that will expose `require` for each of the modules in the array.  This will work even if those modules are also in the `external` array.
+
+#### `browserify([{'module-d': {expose: 'dee'}}][, options])`
+
+Require `module-d` with custom options (to be passed on to browserify).  In this case `module-d` will be exposed as `dee`.  This can be mixed and matched with plain strings.  Note that these modules must not appear in the `external` array.
 
 ### `options` / `settings`
 

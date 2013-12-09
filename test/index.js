@@ -102,33 +102,17 @@ app.use('/opt/mod.js', browserify(['require-test'], {
   debug: false,
   external: ['require-test']
 }));
-app.use('/modObjShort.js', browserify([{'require-test':'require-test'}], {
+app.use('/modObj.js', browserify([{'require-test': {expose: 'require-test-exposed'}}], {
   cache: false,
   gzip: false,
   minify: false,
-  debug: true,
-//  external: ['require-test'] //TODO: according to our docs this should work but expose and external are a bit conflicting so it doesn't quite work and I'm not sure that it should
+  debug: true
 }));
-app.use('/opt/modObjShort.js', browserify([{'require-test':'require-test'}], {
+app.use('/opt/modObj.js', browserify([{'require-test': {expose: 'require-test-exposed'}}], {
   cache: true,
   gzip: true,
   minify: true,
-  debug: false,
-//  external: ['require-test'] //TODO: according to our docs this should work but expose and external are a bit conflicting so it doesn't quite work and I'm not sure that it should
-}));
-app.use('/modObjLong.js', browserify([{module:'require-test', options:{expose:'require-test'}}], {
-  cache: false,
-  gzip: false,
-  minify: false,
-  debug: true,
-//  external: ['require-test'] //TODO: according to our docs this should work but expose and external are a bit conflicting so it doesn't quite work and I'm not sure that it should
-}));
-app.use('/opt/modObjLong.js', browserify([{module:'require-test', options:{expose:'require-test'}}], {
-  cache: true,
-  gzip: true,
-  minify: true,
-  debug: false,
-//  external: ['require-test'] //TODO: according to our docs this should work but expose and external are a bit conflicting so it doesn't quite work and I'm not sure that it should
+  debug: false
 }));
 
 app.get('/dir/file.txt', function (req, res) {
@@ -315,10 +299,9 @@ function test(optimised, get, it) {
         done();
       });
     });
-    it('makes require available (using short module options object)', function (done) {
-      get('/modObjShort.js', optimised, function (err, res) {
+    it('makes require available (using module options object)', function (done) {
+      get('/modObj.js', optimised, function (err, res) {
         if (err) return done(err);
-        //assert.equal(res, '');
         vm.runInNewContext(res, {
           console: {
             log: function () {
@@ -326,28 +309,7 @@ function test(optimised, get, it) {
             }
           }
         });
-        vm.runInNewContext(res + '\nrequire("require-test");', {
-          console: {
-            log: function (res) {
-              assert.equal(res, 'required');
-              done();
-            }
-          }
-        });
-      });
-    });
-    it('makes require available (using long module options object)', function (done) {
-      get('/modObjLong.js', optimised, function (err, res) {
-        if (err) return done(err);
-        //assert.equal(res, '');
-        vm.runInNewContext(res, {
-          console: {
-            log: function () {
-              throw new Error('Module should wait to be required');
-            }
-          }
-        });
-        vm.runInNewContext(res + '\nrequire("require-test");', {
+        vm.runInNewContext(res + '\nrequire("require-test-exposed");', {
           console: {
             log: function (res) {
               assert.equal(res, 'required');
@@ -362,7 +324,6 @@ function test(optimised, get, it) {
     it('makes require available', function (done) {
       get('/mod.js', optimised, function (err, res) {
         if (err) return done(err);
-        //assert.equal(res, '');
         vm.runInNewContext(res, {
           console: {
             log: function () {
