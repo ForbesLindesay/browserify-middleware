@@ -1,3 +1,9 @@
+2.0.0 / 2013-12-09
+==================
+
+  * Update browserify to 3.0.0 (brings major reductions in file sizes for many browserified modules, deprecates support for some features in older browsers)
+  * Suport per-module options to allow custom expose names (thanks to [@KylePDavis](https://github.com/KylePDavis))
+
 1.21.0 / 2013-11-30
 ===================
 
