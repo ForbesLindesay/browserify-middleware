@@ -178,7 +178,12 @@ If cache is any other `string` it will be sent directly to the client.
 
 #### minify
 
-If `minify` is `true`, UglifyJS will be used to minify the resulting code.  This is `true` by default in production.
+If `minify` is `true`, UglifyJS will be used to minify the resulting code.  This is `true` by default in production.  If you set it to an object, the object will be passed to uglify-js as [options](https://github.com/mishoo/UglifyJS2#the-simple-way):
+
+ - `warnings` (default `false`) - pass `true` to display compressor warnings
+ - `mangle` (default `true`) - pass `false` to skip mangling names
+ - `output` (default `null`) - pass an object to specify additional [output options](http://lisperator.net/uglifyjs/codegen). The defaults are optimized for best compression.
+ - `compress` (default `{}`) - pass `false` to skip compressing entirely.  Pass an object to specify custom [compressor options](http://lisperator.net/uglifyjs/compress).
 
 #### gzip
 

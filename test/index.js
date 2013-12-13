@@ -128,6 +128,24 @@ app.get('/opt/dir/non-existant.js', function (req, res) {
   res.end('bar');
 });
 
+
+app.get('/no-minify.js', browserify('./directory/no-minify.js', {
+  cache: false,
+  gzip: false,
+  minify: {
+    mangle: false
+  },
+  debug: true
+}));
+app.get('/opt/no-minify.js', browserify('./directory/no-minify.js', {
+  cache: true,
+  gzip: true,
+  minify: {
+    mangle: false
+  },
+  debug: false
+}));
+
 var port;
 (function () {
   var listeners = [];
@@ -350,6 +368,22 @@ function test(optimised, get, it) {
           console: {
             log: function (txt) {
               assert.equal(txt, 'this is a weird file to require');
+              done();
+            }
+          }
+        })
+      });
+    });
+  });
+  describe('minify: options', function () {
+    it('passes options to uglifyjs', function (done) {
+      get('/no-minify.js', optimised, function (err, res) {
+        if (err) return done(err);
+        assert(/add\(foo,bar\){return foo\+bar}console\.log\(add\(1,2\)\)/.test(res));
+        vm.runInNewContext(res, {
+          console: {
+            log: function (res) {
+              assert.equal(res, 3);
               done();
             }
           }
