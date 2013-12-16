@@ -1,3 +1,10 @@
+2.2.0 / 2013-12-16
+==================
+
+  * Update browserify to 3.4.0
+  * Pass minify options to uglify-js (suggested by [@rnikitin](https://github.com/rnikitin))
+  * Pass `resolve` and `basedir` options to browserify
+
 2.1.0 / 2013-12-13
 ==================
 
