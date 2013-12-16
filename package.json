@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "express middleware for browserify v2",
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha -R spec -t 5000"
   },
   "repository": {
     "type": "git",
