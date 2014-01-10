@@ -192,6 +192,7 @@ app.use('/js', browserify('./client/dir', {
 
 // Precompile multiple files in a directory
 app.use('/js', browserify('./client/dir', {
+  cache: true,
   precompile: ["beep.js", "subdir/boop.js"]
 }));
 
