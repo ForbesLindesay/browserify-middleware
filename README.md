@@ -133,6 +133,7 @@ insertGlobals = false;
 detectGlobals = true;
 standalone = false;
 grep = /\.js$/
+precompile = false;
 ```
 
 To update:
@@ -175,6 +176,39 @@ If cache is an `object` of the form `{private: true || false, maxAge: '10 minute
 If cache is any other `string` it will be sent directly to the client.
 
 **N.B.** that if caching is enabled, the server never times out its cache, no matter what the timeout set for the client.
+
+#### precompile
+
+The precompile setting enables bundles to be precompiled/built and readily cached immediately on server startup.
+When browserifying a directory, this setting can be a path to a single bundle, or an array of file paths relative from the directory.
+When browserifying a single file or a set of modules, this setting is simply treated as a boolean, and if it evaluates to `true`, the bundle will be compiled & cached at server start.
+
+```javascript
+// Precompile a single file in a directory
+app.use('/js', browserify('./client/dir', {
+  cache: true,
+  precompile: 'beep.js'
+}));
+
+// Precompile multiple files in a directory
+app.use('/js', browserify('./client/dir', {
+  precompile: ["beep.js", "subdir/boop.js"]
+}));
+
+// Precompile a browserified file at a path
+app.get('/js/file.js', browserify('./client/file.js', {
+  cache: true,
+  precompile: true
+}));
+
+// Precompile a bundle exposing `require` for a few npm packages.
+app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream'], {
+  cache: true,
+  precompile: true
+}));
+```
+
+**N.B.**  It only makes sense to use precompiling when caching is enabled. If caching is disabled, no precompiling will happen.
 
 #### minify
 

@@ -85,7 +85,8 @@ app.use('/opt/dir', browserify('./directory', {
   cache: true,
   gzip: true,
   minify: true,
-  debug: false
+  debug: false,
+  precompile: ['precompile-jquery.min.js']
 }));
 
 app.use('/mod.js', browserify(['require-test'], {
@@ -419,6 +420,25 @@ describe('options.noParse', function () {
         var end = new Date();
         assert((middle - start) > (end - middle) * 5, 'Without noParse was ' + (middle - start) + ' with noParse was ' + (end - middle));
         done();
+      });
+    });
+  });
+});
+
+describe('options.precompile (directory)', function () {
+  it('speeds up initial request by at least a factor of 150 (for jQuery)', function (done) {
+    this.slow(1000);
+    this.timeout(10000);
+    var noPrecompileStart = new Date();
+    get('/opt/dir/jquery.min.js', false, function (err, res) {
+      if (err) return done(err);
+      var noPrecompileTime = new Date() - noPrecompileStart;
+      var precompileStart = new Date();
+      get('/opt/dir/precompile-jquery.min.js', false, function (err, res) {
+        if (err) return done(err);
+        var precompileTime = new Date() - precompileStart;
+        assert(noPrecompileTime > precompileTime * 150, 'Without precompile was ' + noPrecompileTime + 'ms with precompile was ' + precompileTime+'ms');
+        done()
       });
     });
   });
