@@ -1,3 +1,9 @@
+2.3.0 / 2014-01-23
+==================
+
+  * Update browserify to 3.24.1
+  * Fix a bug when the `external` option combined with a "dynamic" `cache`
+
 2.2.0 / 2013-12-16
 ==================
 
