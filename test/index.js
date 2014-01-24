@@ -86,7 +86,7 @@ app.use('/opt/dir', browserify('./directory', {
   gzip: true,
   minify: true,
   debug: false,
-  precompile: ['precompile-jquery.min.js']
+  precompile: ['./directory/precompile-jquery.min.js']
 }));
 
 app.use('/mod.js', browserify(['require-test'], {
