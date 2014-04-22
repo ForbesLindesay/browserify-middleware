@@ -15,9 +15,9 @@ With the exception of serving up directories (which requires `req.path` from exp
 
 If you think I've missed something, be sure to open an issue or submit a pull request.
 
-[![Build Status](https://travis-ci.org/ForbesLindesay/browserify-middleware.png?branch=master)](https://travis-ci.org/ForbesLindesay/browserify-middleware)
-[![Dependency Status](https://gemnasium.com/ForbesLindesay/browserify-middleware.png)](https://gemnasium.com/ForbesLindesay/browserify-middleware)
-[![NPM version](https://badge.fury.io/js/browserify-middleware.png)](http://badge.fury.io/js/browserify-middleware)
+[![Build Status](https://img.shields.io/travis/ForbesLindesay/browserify-middleware/master.svg)](https://travis-ci.org/ForbesLindesay/browserify-middleware)
+[![Dependency Status](https://img.shields.io/gemnasium/ForbesLindesay/browserify-middleware.svg)](https://gemnasium.com/ForbesLindesay/browserify-middleware)
+[![NPM version](https://img.shields.io/npm/v/browserify-middleware.svg)](http://badge.fury.io/js/browserify-middleware)
 
 ## Usage
 
