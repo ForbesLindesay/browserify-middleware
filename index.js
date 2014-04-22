@@ -14,15 +14,17 @@ function browserify(path, options) {
     path = normalize(path);
   } else {
     var dir = directory();
-    options = exports.settings.normalize(options);
-    options.noParse = options.noParse.map(function (path) {
+    var resolveFromDir = function (path) {
       if (path[0] != '.') return path; //support `['jquery']` as well as `['./src/jquery.js']`
       if (resolve(path) === normalize(path)) {
         return normalize(path);
       } else {
         return resolve(dir, path);
       }
-    })
+    };
+    options = exports.settings.normalize(options);
+    options.noParse = options.noParse.map(resolveFromDir)
+    if (options.precompile) options.precompile = options.precompile.map(resolveFromDir)
     path = resolve(dir, path);
 
   }
