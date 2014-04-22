@@ -201,6 +201,28 @@ If `debug` is `true` you can provide a `string` pathname for basedir and the pat
 
 The regular expression, something like [`/\.(?:js|coffee|ls)$/`](http://tinyurl.com/pawk7cu), that a filename must pass to be served using browserify from a directory.
 
+#### hooks
+
+There are a number of hooks that you can implement to modify the source at a few stages of processing.
+
+e.g.
+
+```js
+app.get('/index.js', browserify('/index.js', {
+  preminify: function (source) {
+    return angularJsMinifier(source);
+  }
+}));
+```
+
+The available hooks are currently:
+
+ - postcompile - fires after compilation, but before any minfication/gzipping
+ - preminify - fires before minfication (but only if minify is enabled)
+ - postminify - fires after minfication (but only if minify is enabled)
+
+The main use case you might have for this would be adding extra minfication steps that are able to make additional assumptions about your code.
+
 #### Others
 
 The remaining settings are all passed through to browserify, you should look at [the browserify readme](https://github.com/substack/node-browserify) if you want to know more:
