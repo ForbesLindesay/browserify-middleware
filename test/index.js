@@ -39,6 +39,7 @@ app.use('/file/beep.js', browserify('./directory/beep.js', {
 }));
 app.use('/opt/file/beep.js', browserify('./directory/beep.js', {
   cache: true,
+  precompile: true,
   gzip: true,
   minify: true,
   debug: false
