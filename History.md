@@ -1,3 +1,10 @@
+2.6.0 / 2014-05-02
+==================
+
+  * Add `precompile` option for all but directory serving (and enable by default in production)
+  * Define some hooks for modifying the entire bundle as a string before and after minifying
+  * Update browserify to 3.44.2
+
 2.5.0 / 2014-03-29
 ==================
 
