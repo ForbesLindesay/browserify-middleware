@@ -111,7 +111,7 @@ browserify.settings.production('cache', '7 days');
 Development defaults:
 
 ```javascript
-development.cache = false;
+development.cache = 'dynamic';
 development.precompile = false;
 development.minify = false;
 development.gzip = false;
@@ -164,7 +164,7 @@ test({
 
 #### cache
 
-The cache setting determines how long content can be cached in the client's web browsers (and any caching proxies) and whether or not to cache bundles server side.  Any value other than `false` will result in them being cached server side.
+The cache setting determines how long content can be cached in the client's web browsers (and any caching proxies) and whether or not to cache bundles server side.  Any value other than `false` will result in them being cached server side.  The `'dynamic'` cache option is special.  It works like watchify and only re-compiles the files that have changed.  This is the fastest option for development.  It does not enable any client side caching.
 
 If cache is `true` the client will recieve Cache Control of `"public, max-age=60"`, which caches for 60 seconds.
 
