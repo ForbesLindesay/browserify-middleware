@@ -1,3 +1,8 @@
+2.6.1 / 2014-05-06
+==================
+
+  * Fix reference error when compiling modules with the `precompile` option (true by default in production)
+
 2.6.0 / 2014-05-02
 ==================
 
