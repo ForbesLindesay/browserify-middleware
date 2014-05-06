@@ -98,6 +98,7 @@ app.use('/mod.js', browserify(['require-test'], {
 }));
 app.use('/opt/mod.js', browserify(['require-test'], {
   cache: true,
+  precompile: true,
   gzip: true,
   minify: true,
   debug: false,
