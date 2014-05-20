@@ -28,61 +28,61 @@ app.get = function (path, handler) {
   })
 }
 
-app.use('/file/jqparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false}))
-app.use('/file/jqnoparse.js', browserify('./directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false, noParse: ['./directory/jquery.min.js']}))
+app.use('/file/jqparse.js', browserify(__dirname + '/directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false}))
+app.use('/file/jqnoparse.js', browserify(__dirname + '/directory/jquery.min.js', {cache: false, gzip: false, minify: false, debug: false, noParse: [__dirname + '/directory/jquery.min.js']}))
 
-app.use('/file/beep.js', browserify('./directory/beep.js', {
+app.use('/file/beep.js', browserify(__dirname + '/directory/beep.js', {
   cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
 }));
-app.use('/opt/file/beep.js', browserify('./directory/beep.js', {
+app.use('/opt/file/beep.js', browserify(__dirname + '/directory/beep.js', {
   cache: true,
   precompile: true,
   gzip: true,
   minify: true,
   debug: false
 }));
-app.use('/file/boop.js', browserify('./directory/boop.js', {
+app.use('/file/boop.js', browserify(__dirname + '/directory/boop.js', {
   cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
 }));
-app.use('/opt/file/boop.js', browserify('./directory/boop.js', {
+app.use('/opt/file/boop.js', browserify(__dirname + '/directory/boop.js', {
   cache: true,
   gzip: true,
   minify: true,
   debug: false
 }));
-app.use('/syntax-error.js', browserify('./directory/syntax-error.js', {
+app.use('/syntax-error.js', browserify(__dirname + '/directory/syntax-error.js', {
   cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
 }));
-app.use('/opt/syntax-error.js', browserify('./directory/syntax-error.js', {
+app.use('/opt/syntax-error.js', browserify(__dirname + '/directory/syntax-error.js', {
   cache: true,
   gzip: true,
   minify: true,
   debug: false
 }));
-app.use('/weirddep.js', browserify('./directory/weirddep.js', {
+app.use('/weirddep.js', browserify(__dirname + '/directory/weirddep.js', {
   extensions: ['.weird']
 }));
-app.use('/opt/weirddep.js', browserify('./directory/weirddep.js', {
+app.use('/opt/weirddep.js', browserify(__dirname + '/directory/weirddep.js', {
   extensions: ['.weird'],
   gzip: true
 }));
 
-app.use('/dir', browserify('./directory', {
+app.use('/dir', browserify(__dirname + '/directory', {
   cache: 'dynamic',
   gzip: false,
   minify: false,
   debug: true
 }));
-app.use('/opt/dir', browserify('./directory', {
+app.use('/opt/dir', browserify(__dirname + '/directory', {
   cache: true,
   gzip: true,
   minify: true,
@@ -131,7 +131,7 @@ app.get('/opt/dir/non-existant.js', function (req, res) {
 });
 
 
-app.get('/no-minify.js', browserify('./directory/no-minify.js', {
+app.get('/no-minify.js', browserify(__dirname + '/directory/no-minify.js', {
   cache: false,
   gzip: false,
   minify: {
@@ -139,7 +139,7 @@ app.get('/no-minify.js', browserify('./directory/no-minify.js', {
   },
   debug: true
 }));
-app.get('/opt/no-minify.js', browserify('./directory/no-minify.js', {
+app.get('/opt/no-minify.js', browserify(__dirname + '/directory/no-minify.js', {
   cache: true,
   gzip: true,
   minify: {

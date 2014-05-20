@@ -20,11 +20,20 @@ function browserify(path, options) {
       if (resolve(path) === normalize(path)) {
         return normalize(path);
       } else {
+        if (resolve(dir, path) !== resolve(path)) {
+          var e = new Error('Using relative paths is deprecated, use absolute paths via require.resolve(path).');
+          e.name = 'Warning';
+          console.warn(e.stack);
+        }
         return resolve(dir, path);
       }
     })
+    if (resolve(dir, path) !== resolve(path)) {
+      var e = new Error('Using relative paths is deprecated, use absolute paths via require.resolve(path).');
+      e.name = 'Warning';
+      console.warn(e.stack);
+    }
     path = resolve(dir, path);
-
   }
   if (stat(path).isDirectory()) {
     return exports.directory(path, options);
