@@ -411,7 +411,7 @@ describe('In NODE_ENV=production', function () {
 describe('options.noParse', function () {
   it('speeds things up by at least a factor of 5 (for jQuery)', function (done) {
     this.slow(1000)
-    this.timeout(10000)
+    this.timeout(20000)
     var start = new Date();
     get('/file/jqparse.js', false, function (err, res) {
       if (err) return done(err);
