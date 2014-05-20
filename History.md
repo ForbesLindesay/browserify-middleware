@@ -1,3 +1,9 @@
+3.0.0 / 2014-05-20
+==================
+
+  * Update browserify to [4.1.5](https://github.com/substack/node-browserify/blob/master/changelog.markdown#415) ([N.B. there are some small breaking changes](https://github.com/substack/node-browserify/blob/master/doc/changelog/4_0.markdown)
+  * Remove magic path resolution (see #21)
+
 2.8.0 / 2014-05-20
 ==================
 
