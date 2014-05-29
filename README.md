@@ -252,7 +252,10 @@ The remaining settings are all passed through to browserify, you should look at 
 - `options.external` - an array of module names that will be required from external bundles (see [browserify/multiple bundles](https://github.com/substack/node-browserify#multiple-bundles)) (default: `[]`)
 - `options.ignore` - an aray of module names that are prevented from showing up in the output bundle (default: `[]`)
 - `options.ignoreMissing` - set to `true` to ignore errors when a module can't be found (default: `false`).
-- `options.transform` - an array of strings or functions to transform top level modules (default: `[]`).
+- `options.transform` - an array of transforms to transform top level modules (default: `[]`). Each item can be:
+    - `"transform-name"` - the npm name of the transform
+    - `transformFunction` - the transform function
+    - `["transform-name" | tranformFunction, {option1: true, ...}]` - the transform and some options
 - `options.insertGlobals` - set to true to always insert `process`, `global` etc. without analysing the AST for faster builds but larger bundles (Note that `options.minify` may cause the globals to be removed again anyway) (default: false)
 - `options.detectGlobals` - set to false to skip adding `process`, `global` etc.  Setting this to false may break more npm modules (default: true).
 - `options.noParse` - an array of module names that should not be parsed for `require` statements of node.js style globals, can speed up loading things like jQuery that are huge but never use `require`.
