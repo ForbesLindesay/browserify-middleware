@@ -1,3 +1,8 @@
+3.0.1 / 2014-07-15
+==================
+
+  * Update browserify to [4.2.1](https://github.com/substack/node-browserify/blob/master/changelog.markdown#421) (contains security fix!)
+
 3.0.0 / 2014-05-20
 ==================
 
