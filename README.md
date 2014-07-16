@@ -250,6 +250,7 @@ The main use case you might have for this would be adding extra minfication step
 The remaining settings are all passed through to browserify, you should look at [the browserify readme](https://github.com/substack/node-browserify) if you want to know more:
 
 - `options.external` - an array of module names that will be required from external bundles (see [browserify/multiple bundles](https://github.com/substack/node-browserify#multiple-bundles)) (default: `[]`)
+- `options.bundleExternal` - boolean option to set if external modules should be bundled (default: `true`)
 - `options.ignore` - an aray of module names that are prevented from showing up in the output bundle (default: `[]`)
 - `options.ignoreMissing` - set to `true` to ignore errors when a module can't be found (default: `false`).
 - `options.transform` - an array of strings or functions to transform top level modules (default: `[]`).
