@@ -26,7 +26,7 @@
     "express": "*"
   },
   "dependencies": {
-    "browserify": "~4.1.5",
+    "browserify": "~4.2.1",
     "uglify-js": "~2.4.13",
     "ms": "~0.6.2",
     "mold-source-map": "0.3.0"
