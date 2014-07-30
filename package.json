@@ -26,6 +26,7 @@
     "express": "*"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "browserify": "~4.2.1",
     "uglify-js": "~2.4.15",
     "ms": "~0.6.2",
