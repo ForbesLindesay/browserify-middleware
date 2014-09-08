@@ -213,7 +213,7 @@ If `gzip` is `true`, GZip will be enabled when clients support it.  This increas
 
 #### debug
 
-If `debug` is `true`, a source map will be added to the code.  This is very useful when debugging.  `debug` is `false` in produciton.
+If `debug` is `true`, a source map will be added to the code.  This is very useful when debugging.  `debug` is `false` in production.
 
 #### basedir
 
