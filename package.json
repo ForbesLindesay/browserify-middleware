@@ -11,7 +11,6 @@
   },
   "keywords": [
     "browserify",
-    "v2",
     "middleware",
     "express",
     "connect"
@@ -19,17 +18,17 @@
   "author": "ForbesLindesay",
   "license": "MIT",
   "devDependencies": {
-    "hyperquest": "*",
     "concat-stream": "*",
+    "express": "*",
+    "hyperquest": "*",
     "mocha": "*",
-    "require-test": "1.0.0",
-    "express": "*"
+    "require-test": "1.0.0"
   },
   "dependencies": {
-    "browserify": "~4.2.1",
+    "browserify": "^5.12.1",
     "mold-source-map": "0.3.0",
     "ms": "~0.6.2",
-    "prepare-response": "~1.1.2",
-    "uglify-js": "~2.4.15"
+    "prepare-response": "^1.1.2",
+    "uglify-js": "^2.4.15"
   }
 }
