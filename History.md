@@ -1,3 +1,9 @@
+4.0.0 / 2014-10-01
+==================
+
+  * Update browserify to [5.12.1](https://github.com/substack/node-browserify/blob/master/changelog.markdown#5121)
+  * Breaks the `expose` option.  If you need this, don't upgrade yet.
+
 3.0.1 / 2014-07-15
 ==================
 

@@ -4,10 +4,10 @@ var app = express();
 
 browserify.settings.development('basedir', __dirname);
 
-app.use('/js', browserify('./client/dir'));
+app.use('/js', browserify(__dirname + '/client/dir'));
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
-app.get('/js/file.js', browserify('./client/file.js'));
-app.get('/js/syntax-error.js', browserify('./client/syntax-error.js'));
+app.get('/js/file.js', browserify(__dirname + '/client/file.js'));
+app.get('/js/syntax-error.js', browserify(__dirname + '/client/syntax-error.js'));
 
 app.use(express.static(__dirname + '/static'));
 
