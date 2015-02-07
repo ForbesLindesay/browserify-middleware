@@ -1,3 +1,12 @@
+5.0.0 / 2015-02-07
+==================
+
+  * Update browserify to [8.1.3](https://github.com/substack/node-browserify/blob/master/changelog.markdown#813)
+  * Fix support for some boolean options
+  * Add `basedir` option
+  * Add `run` option to add to bundle as well as 'require'
+  * Add plugin support
+
 4.1.0 / 2014-10-02
 ==================
 
