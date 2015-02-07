@@ -37,6 +37,9 @@ app.get('/js/file.js', browserify('./client/file.js'));
 //provide a bundle exposing `require` for a few npm packages.
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
 
+//provide a bundle for a few npm packages plus run main.js
+app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {'./client/main.js': {run: true}]}));
+
 app.listen(3000);
 ```
 
