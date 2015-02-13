@@ -1,6 +1,6 @@
 {
   "name": "browserify-middleware",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "express middleware for browserify v2",
   "scripts": {
     "test": "mocha -R spec -t 7000",

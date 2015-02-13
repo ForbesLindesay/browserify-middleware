@@ -1,3 +1,9 @@
+5.0.1 / 2015-02-13
+==================
+
+  * Fix dynamic caching
+  * Add code coverage to tests
+
 5.0.0 / 2015-02-07
 ==================
 
