@@ -1,6 +1,7 @@
 var settings = require('../lib/settings');
 var normalize = settings.normalize;
-var equal = require('assert').equal;
+var equal = require('assert').strictEqual;
+var deepEqual = require('assert').deepEqual;
 
 describe('settings', function () {
   describe('.cache', function () {
@@ -99,4 +100,73 @@ describe('settings', function () {
       });
     });
   })
+  describe('.noParse', function () {
+    describe('when given `true`', function () {
+      it('is `true`', function () {
+        equal(normalize({noParse: true}).noParse, true);
+      });
+    });
+    describe('when given `"foo.js"`', function () {
+      it('is `["foo.js"]`', function () {
+        deepEqual(normalize({noParse: 'foo.js'}).noParse, [
+          'foo.js'
+        ]);
+      });
+    });
+    describe('when given `["foo.js"]`', function () {
+      it('is `["foo.js"]`', function () {
+        deepEqual(normalize({noParse: ['foo.js']}).noParse, [
+          'foo.js'
+        ]);
+      });
+    });
+  });
+  describe('using setter', function () {
+    describe('settings.env("production")', function () {
+      it('returns the production setter', function () {
+        equal(settings.env('production'), settings.production);
+      });
+    });
+    describe('settings.production("key", "value")', function () {
+      it('sets "key" to "value"', function () {
+        equal(settings.production('key', 'value'), settings);
+        equal(settings.production.key, 'value');
+      });
+    });
+    describe('settings.production("key")', function () {
+      it('sets returns the value of "key"', function () {
+        equal(settings.production('key'), 'value');
+      });
+    });
+    describe('settings.production({foo: "bar"})', function () {
+      it('sets "foo" to "bar"', function () {
+        equal(settings.production({foo: "bar"}), settings);
+        equal(settings.production.foo, 'bar');
+      });
+    });
+  });
+  describe('with made up modes', function () {
+    it('has no defaults', function () {
+      settings.mode = 'whatever';
+      deepEqual(settings.normalize(), {
+        external: [],
+        ignore: [],
+        ignoreMissing: false,
+        transform: [],
+        insertGlobals: false,
+        detectGlobals: true,
+        standalone: false,
+        noParse: [],
+        extensions: [],
+        basedir: undefined,
+        grep: /\.js$/,
+        cache: false,
+        minify: false,
+        gzip: true,
+        debug: false,
+        precompile: false
+      });
+      settings.mode = 'development';
+    });
+  });
 })
