@@ -5,11 +5,21 @@ var vm = require('vm');
 var http = require('http');
 var browserify = require('../');
 
-console.warn('  Each file is downloaded ~50 times in parallel to get some feel for how');
-console.warn('  performance scales.');
-console.warn();
-console.warn('  When comparing gzip and not gzip, don\'t forget to account for increased');
-console.warn('  time unzipping on the client.');
+var REPEAT_COUNT = 2;
+if (process.env.npm_lifecycle_event === 'test:perf' ||
+    process.env.npm_lifecycle_event === 'test' && process.env.CI) {
+  REPEAT_COUNT = 50;
+
+  console.warn('  Each file is downloaded ~' + REPEAT_COUNT + ' times in parallel to get some feel for how');
+  console.warn('  performance scales.');
+  console.warn();
+  console.warn('  When comparing gzip and not gzip, don\'t forget to account for increased');
+  console.warn('  time unzipping on the client.');
+} else {
+  console.warn('  To test the performance, run `npm run test:perf`');
+  console.warn('  which will download each file 50 times in prallel');
+}
+
 
 var app = {middleware: []}
 app.use = function (path, handler) {
@@ -228,8 +238,8 @@ function test(optimised, get, it) {
         if (/syntax error/.test(name)) return done();
         fn(function (err) {
           if (err) return done(err);
-          var pending = 50;
-          for (var i = 0; i < 50; i++) {
+          var pending = REPEAT_COUNT;
+          for (var i = 0; i < REPEAT_COUNT; i++) {
             fn(then);
           };
           var called = false;

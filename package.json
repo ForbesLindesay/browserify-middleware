@@ -4,6 +4,7 @@
   "description": "express middleware for browserify v2",
   "scripts": {
     "test": "mocha -R spec -t 7000",
+    "test:perf": "mocha -R spec -t 7000",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -t 7000",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
