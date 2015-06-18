@@ -1,3 +1,9 @@
+6.0.0 / 2015-06-18
+==================
+
+  * Update browserify to [10.2.4](https://github.com/substack/node-browserify/blob/master/changelog.markdown#1024)
+  * Use watchify for dynamic caching
+
 5.0.1 / 2015-02-13
 ==================
 
