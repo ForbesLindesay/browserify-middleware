@@ -1,3 +1,9 @@
+7.0.0 / 2015-07-22
+==================
+
+  * Update browserify to [11.0.0](https://github.com/substack/node-browserify/blob/master/changelog.markdown#1100)
+  * Add `bundleExternal` option (thanks to [@59naga](https://github.com/59naga))
+
 6.0.0 / 2015-06-18
 ==================
 
