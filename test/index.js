@@ -158,6 +158,11 @@ app.get('/opt/no-minify.js', browserify(__dirname + '/directory/no-minify.js', {
   debug: false
 }));
 
+app.get('/opt/no-bundle-external.js', browserify(__dirname + '/directory/no-bundle-external.js', {
+  bundleExternal: false,
+  debug: false,
+}));
+
 var port;
 (function () {
   var listeners = [];
@@ -434,6 +439,19 @@ describe('options.noParse', function () {
         assert((middle - start) > (end - middle) * 5, 'Without noParse was ' + (middle - start) + ' with noParse was ' + (end - middle));
         done();
       });
+    });
+  });
+});
+
+describe('options.bundleExternal= false', function () {
+  it('Exclude node_modules and builtins', function (done) {
+    this.slow(1000)
+    this.timeout(20000)
+    var start = new Date();
+    get('/opt/no-bundle-external.js', false, function (err, res) {
+      if (err) return done(err);
+      assert.equal(res.match(/Copyright Joyent, Inc/), null);
+      done();
     });
   });
 });
