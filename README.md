@@ -30,22 +30,19 @@ var express = require('express');
 var app = express();
 
 //provide browserified versions of all the files in a directory
-app.use('/js', browserify('./client/dir'));
+app.use('/js', browserify(__dirname + '/client/dir'));
 
 //provide a browserified file at a path
-app.get('/js/file.js', browserify('./client/file.js'));
+app.get('/js/file.js', browserify(__dirname + '/client/file.js'));
 
 //provide a bundle exposing `require` for a few npm packages.
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
 
 //provide a bundle for a few npm packages plus run main.js
-app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {'./client/main.js': {run: true}]}));
+app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {__dirname + '/client/main.js': {run: true}]}));
 
 app.listen(3000);
 ```
-
-P.S. file paths are relative to `__dirname` of caller, not relative to `process.cwd()`.  This is much more intuitive.
-
 ## Multiple Bundles Example
 
 Multiple bundles can sometimes lead to better caching performance.  If you had multiple different JavaScript modules in `./client` that all depended on `hyperquest` and `concat-stream` and were used on different pages, you may want to split those two modules into separate files so that they are only loaded once for someone browsing arround the site:
