@@ -7,6 +7,7 @@
 In addition to the basics, browserify-middleware has the following features out of the box:
 
  - source-maps are automatically enabled for debugging
+ - automatically rebuilds whenever files change in development
  - minification automatically enabled for production
  - gzip automatically enabled for production
  - etags for caching automatically enabled for production
