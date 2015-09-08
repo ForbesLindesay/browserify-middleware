@@ -12,7 +12,7 @@ In addition to the basics, browserify-middleware has the following features out 
  - gzip automatically enabled for production
  - etags for caching automatically enabled for production
 
-With the exception of serving up directories (which requires `req.path` from express) everything is entirely framework independant.  Simply pass in `req` `res`, and a `callback` that will only be called in the event of an error.
+With the exception of serving up directories (which requires `req.path` from express) everything is entirely framework independent.  Simply pass in `req` `res`, and a `callback` that will only be called in the event of an error.
 
 If you think I've missed something, be sure to open an issue or submit a pull request.
 
@@ -40,7 +40,7 @@ app.get('/js/file.js', browserify(__dirname + '/client/file.js'));
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
 
 //provide a bundle for a few npm packages plus run main.js
-app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {__dirname + '/client/main.js': {run: true}]}));
+app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {__dirname + '/client/main.js': {run: true}}]));
 
 app.listen(3000);
 ```
