@@ -40,7 +40,7 @@ app.get('/js/file.js', browserify(__dirname + '/client/file.js'));
 app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream']));
 
 //provide a bundle for a few npm packages plus run main.js
-app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {__dirname + '/client/main.js': {run: true}]}));
+app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream', {__dirname + '/client/main.js': {run: true}}]));
 
 app.listen(3000);
 ```
