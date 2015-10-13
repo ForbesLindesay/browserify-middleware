@@ -221,6 +221,10 @@ If `debug` is `true`, a source map will be added to the code.  This is very usef
 
 If `debug` is `true` you can provide a `string` pathname for basedir and the paths of your files in the source-map will be displayed relative to that file.  This is great for hiding the details of your local file system or tidying up the debugging of a large app.
 
+#### plugins
+
+An array of objects of the form `{plugin: 'name', options: {object}}`.
+
 #### grep
 
 The regular expression, something like [`/\.(?:js|coffee|ls)$/`](http://tinyurl.com/pawk7cu), that a filename must pass to be served using browserify from a directory.
