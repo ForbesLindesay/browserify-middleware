@@ -18,8 +18,8 @@ If you think I've missed something, be sure to open an issue or submit a pull re
 
 [![Build Status](https://img.shields.io/travis/ForbesLindesay/browserify-middleware/master.svg)](https://travis-ci.org/ForbesLindesay/browserify-middleware)
  [![Coverage Status](https://img.shields.io/coveralls/ForbesLindesay/browserify-middleware/master.svg?style=flat)](https://coveralls.io/r/ForbesLindesay/browserify-middleware?branch=master)
-[![Dependency Status](https://img.shields.io/gemnasium/ForbesLindesay/browserify-middleware.svg)](https://gemnasium.com/ForbesLindesay/browserify-middleware)
-[![NPM version](https://img.shields.io/npm/v/browserify-middleware.svg)](http://badge.fury.io/js/browserify-middleware)
+[![Dependency Status](https://img.shields.io/david/ForbesLindesay/browserify-middleware.svg)](https://david-dm.org/ForbesLindesay/browserify-middleware)
+[![NPM version](https://img.shields.io/npm/v/browserify-middleware.svg)](https://www.npmjs.com/package/browserify-middleware)
 
 ## Usage
 
