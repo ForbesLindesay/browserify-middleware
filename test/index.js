@@ -158,6 +158,25 @@ app.get('/opt/no-minify.js', browserify(__dirname + '/directory/no-minify.js', {
   debug: false
 }));
 
+app.get('/fullpaths.js', browserify(__dirname + '/directory/beep.js', {
+  cache: false,
+  gzip: false,
+  minify: {
+    mangle: false
+  },
+  debug: true,
+  fullPaths: true
+}));
+app.get('/opt/fullpaths.js', browserify(__dirname + '/directory/beep.js', {
+  cache: true,
+  gzip: true,
+  minify: {
+    mangle: false
+  },
+  debug: false,
+  fullPaths: true
+}));
+
 app.get('/opt/no-bundle-external.js', browserify(__dirname + '/directory/no-bundle-external.js', {
   bundleExternal: false,
   debug: false,
@@ -403,6 +422,23 @@ function test(optimised, get, it) {
           console: {
             log: function (res) {
               assert.equal(res, 3);
+              done();
+            }
+          }
+        })
+      });
+    });
+  });
+  describe('passes other options to browserify', function () {
+    it('passes fullPaths', function (done) {
+      get('/fullpaths.js', optimised, function (err, res) {
+        if (err) return done(err);
+        assert(res.indexOf('test/directory/beep.js') != -1);
+
+        vm.runInNewContext(res, {
+          console: {
+            log: function (res) {
+              assert.equal(res, 'BEEP!');
               done();
             }
           }
