@@ -1,5 +1,7 @@
 # browserify-middleware
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/ForbesLindesay/browserify-middleware.svg)](https://greenkeeper.io/)
+
 <img src="http://i.imgur.com/6cyfaYS.png" align="right" />
 
 **middleware for browserify v2 with sensible defaults for the ultimate in ease of use**
