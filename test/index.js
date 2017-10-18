@@ -417,7 +417,7 @@ function test(optimised, get, it) {
     it('passes options to uglifyjs', function (done) {
       get('/no-minify.js', optimised, function (err, res) {
         if (err) return done(err);
-        assert(/add\(foo,bar\){return foo\+bar}console\.log\(add\(1,2\)\)/.test(res));
+        assert(res.indexOf("console.log(function(foo,bar){return foo+bar}(1,2))") !== -1);
         vm.runInNewContext(res, {
           console: {
             log: function (res) {
