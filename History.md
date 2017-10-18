@@ -1,3 +1,9 @@
+8.0.0 / 2017-10-18
+==================
+
+  * Update browserify to [14.1.0](https://github.com/browserify/browserify/blob/master/changelog.markdown#1410)
+  * Pass other options to browserify
+
 7.1.0 / 2016-09-19
 ==================
 
