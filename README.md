@@ -21,6 +21,10 @@ If you think I've missed something, be sure to open an issue or submit a pull re
 [![Dependency Status](https://img.shields.io/david/ForbesLindesay/browserify-middleware.svg)](https://david-dm.org/ForbesLindesay/browserify-middleware)
 [![NPM version](https://img.shields.io/npm/v/browserify-middleware.svg)](https://www.npmjs.com/package/browserify-middleware)
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/gg9sZwctSLxyov1sJwW6pfyS/ForbesLindesay/browserify-middleware'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/gg9sZwctSLxyov1sJwW6pfyS/ForbesLindesay/browserify-middleware.svg' />
+</a>
+
 ## Usage
 
 See `example` directory for a complete server
