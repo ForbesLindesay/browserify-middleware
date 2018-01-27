@@ -35,6 +35,6 @@
     "prepare-response": "^1.1.2",
     "promise": "^7.0.3",
     "uglify-js": "^2.7.3",
-    "watchify": "^3.3.0"
+    "watchify": "3.9.0"
   }
 }
