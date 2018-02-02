@@ -3,9 +3,9 @@
   "version": "8.0.0",
   "description": "express middleware for browserify v2",
   "scripts": {
-    "test": "mocha -R spec -t 7000",
-    "test:perf": "mocha -R spec -t 7000",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -t 7000",
+    "test": "mocha -R spec -t 7000 --exit",
+    "test:perf": "mocha -R spec -t 7000 --exit",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -t 7000 --exit",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -34,7 +34,7 @@
     "ms": "^0.7.1",
     "prepare-response": "^1.1.2",
     "promise": "^7.0.3",
-    "uglify-js": "^2.7.3",
+    "uglify-js": "^3.3.9",
     "watchify": "^3.3.0"
   }
 }
