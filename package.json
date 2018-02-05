@@ -30,7 +30,7 @@
     "require-test": "1.0.0"
   },
   "dependencies": {
-    "browserify": "^14.1.0",
+    "browserify": "^15.2.0",
     "ms": "^0.7.1",
     "prepare-response": "^1.1.2",
     "promise": "^7.0.3",
