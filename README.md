@@ -253,7 +253,7 @@ The available hooks are currently:
  - preminify - fires before minfication (but only if minify is enabled)
  - postminify - fires after minfication (but only if minify is enabled)
 
-The main use case you might have for this would be adding extra minfication steps that are able to make additional assumptions about your code.
+The main use case you might have for this would be adding extra minfication steps that are able to make additional assumptions about your code.  These hooks can return either a string or a Promise for a string.
 
 #### Others
 
