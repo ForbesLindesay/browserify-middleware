@@ -34,7 +34,7 @@
     "ms": "^0.7.1",
     "prepare-response": "^2.1.1",
     "promise": "^7.0.3",
-    "uglify-js": "^3.3.9",
+    "uglify-es": "^3.3.9",
     "watchify": "^3.3.0"
   }
 }
