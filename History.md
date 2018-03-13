@@ -1,3 +1,9 @@
+8.1.0 / 2018-03-13
+==================
+
+  * Update browserify to 16.0.0
+  * Swap from uglify-js to uglify-es
+
 8.0.0 / 2017-10-18
 ==================
 
