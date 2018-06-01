@@ -1,11 +1,11 @@
 {
   "name": "browserify-middleware",
-  "version": "8.0.0",
+  "version": "8.1.0",
   "description": "express middleware for browserify v2",
   "scripts": {
-    "test": "mocha -R spec -t 7000",
-    "test:perf": "mocha -R spec -t 7000",
-    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -t 7000",
+    "test": "mocha -R spec -t 7000 --exit",
+    "test:perf": "mocha -R spec -t 7000 --exit",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -t 7000 --exit",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -30,11 +30,11 @@
     "require-test": "1.0.0"
   },
   "dependencies": {
-    "browserify": "^14.1.0",
+    "browserify": "^16.0.0",
     "ms": "^2.1.1",
-    "prepare-response": "^1.1.2",
+    "prepare-response": "^2.1.1",
     "promise": "^7.0.3",
-    "uglify-js": "^2.7.3",
+    "uglify-es": "^3.3.9",
     "watchify": "^3.3.0"
   }
 }
