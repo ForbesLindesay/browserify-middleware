@@ -102,7 +102,6 @@ Production defaults:
 
 ```javascript
 production.cache = true; // equivalent to "public, max-age=60"
-production.precompile = true;
 production.minify = true;
 production.gzip = true;
 production.debug = false;
@@ -118,7 +117,6 @@ Development defaults:
 
 ```javascript
 development.cache = 'dynamic';
-development.precompile = false;
 development.minify = false;
 development.gzip = false;
 development.debug = true;
@@ -183,26 +181,6 @@ If cache is an `object` of the form `{private: true || false, maxAge: '10 minute
 If cache is any other `string` it will be sent directly to the client.
 
 **N.B.** that if caching is enabled, the server never times out its cache, no matter what the timeout set for the client.
-
-#### precompile
-
-The precompile setting enables bundles to be precompiled/built and readily cached immediately on server startup. This option is not available when using browserify with a directory.  If `precompile` is set to `true`, the bundle will be compiled & cached at server start.
-
-```javascript
-// Precompile a browserified file at a path
-app.get('/js/file.js', browserify('./client/file.js', {
-  cache: true,
-  precompile: true
-}));
-
-// Precompile a bundle exposing `require` for a few npm packages.
-app.get('/js/bundle.js', browserify(['hyperquest', 'concat-stream'], {
-  cache: true,
-  precompile: true
-}));
-```
-
-**N.B.**  It only makes sense to use precompiling when caching is enabled. If caching is disabled, no precompiling will happen.
 
 #### minify
 

@@ -163,8 +163,7 @@ describe('settings', function () {
         cache: false,
         minify: false,
         gzip: true,
-        debug: false,
-        precompile: false
+        debug: false
       });
       settings.mode = 'development';
     });
