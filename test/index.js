@@ -421,7 +421,7 @@ function test(optimised, get, it) {
     });
   });
   describe('minify: options', function () {
-    it('passes options to uglifyjs', function (done) {
+    it('passes options to terser', function (done) {
       get('/no-mangle.js', optimised, function (err, res) {
         if (err) return done(err);
         const searchString = "foo+bar";
