@@ -26,7 +26,7 @@
     "express": "*",
     "hyperquest": "*",
     "istanbul": "^0.4.5",
-    "mocha": "*",
+    "mocha": ">=6.1.1",
     "require-test": "1.0.0"
   },
   "dependencies": {
