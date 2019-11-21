@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "concat-stream": "*",
-    "coveralls": "^2.11.2",
+    "coveralls": "^3.0.8",
     "express": "*",
     "hyperquest": "*",
     "istanbul": "^0.4.5",
