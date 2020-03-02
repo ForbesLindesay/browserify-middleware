@@ -33,7 +33,7 @@
     "browserify": "^16.0.0",
     "ms": "^2.1.1",
     "prepare-response": "^2.1.1",
-    "promise": "^8.0.2",
+    "promise": "^8.1.0",
     "uglify-es": "^3.3.9",
     "watchify": "^3.3.0"
   }
